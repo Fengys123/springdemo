@@ -1,0 +1,17 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="helloBean" class="com.dlut.HelloWorld">
+        <property name="name" value="Yiibai" />
+    </bean>
+
+
+    <bean id="OutputHelper" class="com.dlut.output.OutputHelper">
+        <property name="outputGenerator" ref="CsvOutputGenerator" />
+    </bean>
+    <bean id="CsvOutputGenerator" class="com.dlut.output.impl.CsvOutputGenerator" />
+    <bean id="JsonOutputGenerator" class="com.dlut.output.impl.JsonOutputGenerator" />
+
+</beans>
