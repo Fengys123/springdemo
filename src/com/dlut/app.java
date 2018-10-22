@@ -29,7 +29,12 @@ public class app {
         System.out.println();*/
 
 
+        /**
+         * 现在，只需要改变 Spring XML 文件使用不同的输出生成器。只修改 Spring XML 文件而不需要无码修改，这意味着更少的错误。
+         */
         OutputHelper output2 = (OutputHelper)context.getBean("OutputHelper");
-        output.generateOutput();
+        output2.generateOutput();
+
+
     }
 }

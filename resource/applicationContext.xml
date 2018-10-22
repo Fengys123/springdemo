@@ -1,17 +1,29 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="helloBean" class="com.dlut.HelloWorld">
         <property name="name" value="Yiibai" />
     </bean>
 
+    <!--
+        在Spring中，支持 5 自动装配模式。
+            no  – 缺省情况下，自动配置是通过“ref”属性手动设定
+            byName – 根据属性名称自动装配。如果一个bean的名称和其他bean属性的名称是一样的，将会自装配它。
+            byType – 按数据类型自动装配。如果一个bean的数据类型是用其它bean属性的数据类型，兼容并自动装配它。
+            constructor – 在构造函数参数的byType方式。
+            autodetect – 如果找到默认的构造函数，使用“自动装配用构造”; 否则，使用“按类型自动装配”。
+    -->
 
-    <bean id="OutputHelper" class="com.dlut.output.OutputHelper">
-        <property name="outputGenerator" ref="CsvOutputGenerator" />
-    </bean>
-    <bean id="CsvOutputGenerator" class="com.dlut.output.impl.CsvOutputGenerator" />
-    <bean id="JsonOutputGenerator" class="com.dlut.output.impl.JsonOutputGenerator" />
+    <!--
+        在类型的自动装配模式,就必须保证只有bean是唯一一个数据类型声明
+    -->
+    <context:annotation-config />
+
+    <bean id="OutputHelper" class="com.dlut.output.OutputHelper"/>
+    <bean id="csvoutputGenerator" class="com.dlut.output.impl.CsvOutputGenerator" />
+    <bean id="jsonOutputGenerator" class="com.dlut.output.impl.JsonOutputGenerator" />
 
 </beans>
