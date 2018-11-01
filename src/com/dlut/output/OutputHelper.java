@@ -1,41 +1,40 @@
 package com.dlut.output;
 
 import com.dlut.output.impl.CsvOutputGenerator;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-
-
-/**
- * @Controller action
- * @Service
- * @Repository dao层
- */
 
 public class OutputHelper {
     /**
      * 当Spring无法找到匹配的Bean装配，它会抛出异常。要解决这个问题，
      * 可以通过 @Autowired 的“required”属性设置为false来禁用此检查功能。
      */
-    @Autowired(required = false)
-    @Qualifier("jsonOutputGenerator")
+    //@Autowired(required = false)
+
+    public IOutputGenerator getOutputGenerator() {
+        return outputGenerator;
+    }
+
+    public void setOutputGenerator(IOutputGenerator outputGenerator) {
+        this.outputGenerator = outputGenerator;
+    }
 
     /**
      * 通过 @Autowired 自动装配 bean，它可以在 setter 方法，构造函数或字段中使用。
      * 使用 @Autowired 注解进行装配，只能是根据类型进行匹配。
      */
-
     IOutputGenerator outputGenerator;
 
-
-
     public OutputHelper(){
-        //outputGenerator = new CsvOutputGenerator();
+
     }
 
-    public void generateOutput(){
+    public OutputHelper(IOutputGenerator iOutputGenerator){
+        this.outputGenerator = iOutputGenerator;
+    }
+
+
+    public void generateOutput() {
         outputGenerator.generateOutput();
     }
 

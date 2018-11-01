@@ -21,11 +21,33 @@
         在类型的自动装配模式,就必须保证只有bean是唯一一个数据类型声明
     -->
     <context:annotation-config />
-    <!-- 添加类的扫描解析器 -->
-    <context:component-scan base-package="com.dlut"></context:component-scan>
 
-    <!--<bean id="OutputHelper" class="com.dlut.output.OutputHelper"/>-->
-    <!--<bean id="csvoutputGenerator" class="com.dlut.output.impl.CsvOutputGenerator" />-->
-    <!--<bean id="jsonOutputGenerator" class="com.dlut.output.impl.JsonOutputGenerator" />-->
+    <bean id="outputHelper" class="com.dlut.output.OutputHelper">
+        <property name="outputGenerator" ref="jsonOutputGenerator"/>
+    </bean>
+    <bean id="csvoutputGenerator" class="com.dlut.output.impl.CsvOutputGenerator" />
+    <bean id="jsonOutputGenerator" class="com.dlut.output.impl.JsonOutputGenerator" />
 
+    <bean id="beforeOutputMethod" class="com.dlut.aop.beforeOutputMethod"/>
+
+    <bean id="afterOutputMethod" class="com.dlut.aop.afterOutputMethod"/>
+
+    <bean id="afterThrowing" class="com.dlut.aop.afterThrowing"/>
+
+    <bean id="aroundOutputMethod" class="com.dlut.aop.aroundOutputMethod"/>
+
+    <bean id="beforeOutputMethodProxy"
+          class="org.springframework.aop.framework.ProxyFactoryBean">
+
+        <property name="target" ref="outputHelper" />
+
+        <property name="interceptorNames">
+            <list>
+                <!--<value>beforeOutputMethod</value>-->
+                <!--<value>afterOutputMethod</value>-->
+                <!--<value>afterThrowing</value>-->
+                <value>aroundOutputMethod</value>
+            </list>
+        </property>
+    </bean>
 </beans>
