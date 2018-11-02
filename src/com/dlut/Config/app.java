@@ -6,12 +6,14 @@ import com.dlut.output.impl.CsvOutputGenerator;
 import com.dlut.output.impl.JsonOutputGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.Resource;
 
 @Configuration
+@ComponentScan("com.dlut")
 public class app {
     @Bean(name = "outputHelper1")
     @Scope(value = "singleton")
@@ -33,7 +35,7 @@ public class app {
         return new JsonOutputGenerator();
     }
 
-    @Bean
+    @Bean(name = "csvOutputGenerator")
     public CsvOutputGenerator csvOutputGenerator(){
         return new CsvOutputGenerator();
     }
