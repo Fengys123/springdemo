@@ -1,5 +1,6 @@
-package com.dlut.output.config;
+package com.dlut.Config;
 
+import com.dlut.output.IOutputGenerator;
 import com.dlut.output.OutputHelper;
 import com.dlut.output.impl.CsvOutputGenerator;
 import com.dlut.output.impl.JsonOutputGenerator;
@@ -12,12 +13,19 @@ import javax.annotation.Resource;
 
 @Configuration
 public class app {
-    @Bean
-//    @Autowired
+    @Bean(name = "outputHelper1")
     @Scope(value = "singleton")
-    @Resource(name = "jsonOutputGenerator")
-    public OutputHelper outputHelper(JsonOutputGenerator jsonOutputGenerator){
-        return new OutputHelper(jsonOutputGenerator);
+    @Resource(name = "csvOutputGenerator")
+    public OutputHelper outputHelper1(IOutputGenerator csvOutputGenerator){
+        return new OutputHelper((CsvOutputGenerator)csvOutputGenerator);
+    }
+
+    @Bean(name = "outputHelper")
+    @Scope(value = "singleton")
+    public OutputHelper outputHelper(){
+        OutputHelper outputHelper =  new OutputHelper();
+        outputHelper.setOutputGenerator(jsonOutputGenerator());
+        return outputHelper;
     }
 
     @Bean(name = "jsonOutputGenerator")

@@ -1,11 +1,10 @@
-package com.dlut.output.Config;
+package com.dlut.Config;
 
-import com.dlut.HelloWorld;
 import com.dlut.output.OutputHelper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class OutputConfig
 {
     @Bean(name="outputHelper")
