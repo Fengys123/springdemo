@@ -43,9 +43,9 @@ public class app {
         output3.generateOutput();
 
         OutputHelper output4 = (OutputHelper)context1.getBean("outputHelper1");
-        output3.generateOutput();
+        output4.generateOutput();
 
-
+        ((AnnotationConfigApplicationContext) context1).close();
 
 
 

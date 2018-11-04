@@ -1,19 +1,19 @@
 package com.dlut.Config;
 
+import com.dlut.Aspectj.LogAspectj;
 import com.dlut.output.IOutputGenerator;
 import com.dlut.output.OutputHelper;
 import com.dlut.output.impl.CsvOutputGenerator;
 import com.dlut.output.impl.JsonOutputGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
 import javax.annotation.Resource;
 
 @Configuration
 @ComponentScan("com.dlut")
+//使用该注解开启Spring对Aspectj代理的支持
+@EnableAspectJAutoProxy
 public class app {
     @Bean(name = "outputHelper1")
     @Scope(value = "singleton")
@@ -38,5 +38,10 @@ public class app {
     @Bean(name = "csvOutputGenerator")
     public CsvOutputGenerator csvOutputGenerator(){
         return new CsvOutputGenerator();
+    }
+
+    @Bean
+    public LogAspectj logAspectj(){
+        return new LogAspectj();
     }
 }

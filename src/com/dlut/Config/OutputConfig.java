@@ -1,5 +1,6 @@
 package com.dlut.Config;
 
+import com.dlut.Aspectj.annotation.Action;
 import com.dlut.output.OutputHelper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

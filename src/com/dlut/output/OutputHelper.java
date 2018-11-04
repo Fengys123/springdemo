@@ -1,5 +1,6 @@
 package com.dlut.output;
 
+import com.dlut.Aspectj.annotation.Action;
 import com.dlut.output.impl.CsvOutputGenerator;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class OutputHelper {
     }
 
 
+    @Action(name = "")
     public void generateOutput() {
         outputGenerator.generateOutput();
     }
