@@ -1,8 +1,10 @@
 package com.dlut.Config;
 
 import com.dlut.Aspectj.LogAspectj;
+import com.dlut.el.DemoService;
 import com.dlut.output.IOutputGenerator;
 import com.dlut.output.OutputHelper;
+import com.dlut.output.Profile.demoBean;
 import com.dlut.output.impl.CsvOutputGenerator;
 import com.dlut.output.impl.JsonOutputGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import javax.annotation.Resource;
 //使用该注解开启Spring对Aspectj代理的支持
 @EnableAspectJAutoProxy
 public class app {
-    @Bean(name = "outputHelper1")
+    @Bean(name = "outputHelper1",initMethod = "init",destroyMethod = "destory")
     @Scope(value = "singleton")
     @Resource(name = "csvOutputGenerator")
     public OutputHelper outputHelper1(IOutputGenerator csvOutputGenerator){
@@ -44,4 +46,19 @@ public class app {
     public LogAspectj logAspectj(){
         return new LogAspectj();
     }
+
+    @Bean
+    @Profile("dev")
+    public demoBean devDemoBean()
+    {
+        return  new demoBean("From development profile");
+    }
+
+    @Bean
+    @Profile("prod")
+    public demoBean proDemoBean()
+    {
+        return new demoBean("From production profile");
+    }
+
 }

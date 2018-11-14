@@ -44,4 +44,14 @@ public class OutputHelper {
         System.out.println("执行setOutputGenerator操作!!!");
         this.outputGenerator = outputGenerator;
     }*/
+
+    public void init()
+    {
+        System.out.println("OutputHelper  init!!!");
+    }
+
+    public void destory()
+    {
+        System.out.println("OutputHelper destory!!!");
+    }
 }

@@ -1,5 +1,6 @@
 package com.dlut;
 
+import com.dlut.el.DemoService;
 import com.dlut.output.OutputHelper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -39,14 +40,20 @@ public class app {
          * 现在，只需要改变 Spring XML 文件使用不同的输出生成器。只修改 Spring XML 文件而不需要无码修改，这意味着更少的错误。
          */
         ApplicationContext context1 = new AnnotationConfigApplicationContext(com.dlut.Config.app.class);
+        ((AnnotationConfigApplicationContext)context1).getEnvironment().setActiveProfiles("prod");
+        //context1.register(com.dlut.Config.app.class);
+        ((AnnotationConfigApplicationContext)context1).refresh();
+
         OutputHelper output3 = (OutputHelper)context1.getBean("outputHelper");
         output3.generateOutput();
 
         OutputHelper output4 = (OutputHelper)context1.getBean("outputHelper1");
         output4.generateOutput();
 
-        ((AnnotationConfigApplicationContext) context1).close();
+        DemoService demoService = (DemoService) context1.getBean("demoService");
+        demoService.outputResource();
 
+        ((AnnotationConfigApplicationContext) context1).close();
 
 
     }
