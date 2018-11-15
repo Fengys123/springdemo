@@ -1,7 +1,12 @@
 package com.dlut;
 
+import com.dlut.aware.AwareService;
 import com.dlut.el.DemoService;
+import com.dlut.event.DemoPublisher;
 import com.dlut.output.OutputHelper;
+import com.dlut.output.Profile.demoBean;
+import com.dlut.taskExecutor.AsyncTaskService;
+import com.dlut.taskscheduler.ScheduledTaskService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -39,9 +44,9 @@ public class app {
         /**
          * 现在，只需要改变 Spring XML 文件使用不同的输出生成器。只修改 Spring XML 文件而不需要无码修改，这意味着更少的错误。
          */
-        ApplicationContext context1 = new AnnotationConfigApplicationContext(com.dlut.Config.app.class);
-        ((AnnotationConfigApplicationContext)context1).getEnvironment().setActiveProfiles("prod");
-        //context1.register(com.dlut.Config.app.class);
+        ApplicationContext context1 = new AnnotationConfigApplicationContext();
+        ((AnnotationConfigApplicationContext)context1).getEnvironment().setActiveProfiles("dev");
+        ((AnnotationConfigApplicationContext)context1).register(com.dlut.Config.app.class);
         ((AnnotationConfigApplicationContext)context1).refresh();
 
         OutputHelper output3 = (OutputHelper)context1.getBean("outputHelper");
@@ -52,6 +57,24 @@ public class app {
 
         DemoService demoService = (DemoService) context1.getBean("demoService");
         demoService.outputResource();
+
+        demoBean demoBean = context1.getBean(com.dlut.output.Profile.demoBean.class);
+        System.out.println(demoBean.getContent());
+
+        DemoPublisher demoPublisher = context1.getBean(DemoPublisher.class);
+        demoPublisher.publish("Java,次不刺激");
+
+        AwareService awareService = context1.getBean(AwareService.class);
+        awareService.outputResult();
+
+        AsyncTaskService asyncTaskService = context1.getBean(AsyncTaskService.class);
+        for(int i=0 ; i<10 ; i++){
+            asyncTaskService.executeAsyncTask(i);
+            asyncTaskService.executeAsyncTaskplus(i);
+        }
+
+        //ScheduledTaskService scheduledTaskService = context1.getBean(ScheduledTaskService.class);
+        //scheduledTaskService.reportCurrentTime();
 
         ((AnnotationConfigApplicationContext) context1).close();
 
