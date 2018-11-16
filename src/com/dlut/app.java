@@ -73,11 +73,9 @@ public class app {
             asyncTaskService.executeAsyncTaskplus(i);
         }
 
-        //ScheduledTaskService scheduledTaskService = context1.getBean(ScheduledTaskService.class);
-        //scheduledTaskService.reportCurrentTime();
+        //((AnnotationConfigApplicationContext) context1).close();
 
-        ((AnnotationConfigApplicationContext) context1).close();
-
+        //ApplicationContext context2 = new AnnotationConfigApplicationContext(TaskSchedulerConfig.class);
 
     }
 }
