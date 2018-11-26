@@ -1,12 +1,14 @@
 package com.dlut.Config;
 
 import com.dlut.Aspectj.LogAspectj;
+import com.dlut.annotation.WiselyConfiguration;
 import com.dlut.el.DemoService;
 import com.dlut.output.IOutputGenerator;
 import com.dlut.output.OutputHelper;
 import com.dlut.output.Profile.demoBean;
 import com.dlut.output.impl.CsvOutputGenerator;
 import com.dlut.output.impl.JsonOutputGenerator;
+import org.junit.Test;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -14,13 +16,15 @@ import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.test.context.TestExecutionListeners;
 
 import javax.annotation.Resource;
 import java.util.concurrent.Executor;
 
-@Configuration
-@ComponentScan("com.dlut")
+//@Configuration
+//@ComponentScan("com.dlut")
 //使用该注解开启Spring对Aspectj代理的支持
+@WiselyConfiguration("com.dlut")
 @EnableAspectJAutoProxy
 @EnableAsync
 @EnableScheduling
